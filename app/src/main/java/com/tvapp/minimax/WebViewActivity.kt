@@ -138,16 +138,6 @@ class WebViewActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun onWindowInsetsChanged(insets: View) {
-        val systemBarsVisible = insets.isVisible(WindowInsetsCompat.Type.systemBars())
-        if (systemBarsVisible) {
-            window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            )
-        }
-    }
 
     override fun onResume() {
         super.onResume()

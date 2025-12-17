@@ -1,21 +1,17 @@
 package com.tvapp.minimax
 
 import android.os.Bundle
-import android.view.KeyEvent
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.leanback.widget.SearchEditText
-import androidx.leanback.widget.SearchResultProvider
-import androidx.leanback.widget.SpeechOrbView
 
-class SearchFragment : Fragment(), SearchResultProvider {
+class SearchFragment : Fragment() {
 
-    private lateinit var searchEditText: SearchEditText
+    private lateinit var searchEditText: androidx.leanback.widget.SearchEditText
     private lateinit var resultsList: ListView
     private var adapter: ArrayAdapter<String>? = null
 
@@ -34,16 +30,17 @@ class SearchFragment : Fragment(), SearchResultProvider {
     }
 
     private fun setupSearch() {
-        searchEditText.setOnSearchBoxListener(object : SearchEditText.SearchBoxListener {
-            override fun onSearchQuerySubmit(query: String) {
-                performSearch(query)
-            }
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onSearchQueryChange(query: String) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString()
                 if (query.isNotEmpty()) {
                     performSearch(query)
                 }
             }
+
+            override fun afterTextChanged(s: android.text.Editable?) {}
         })
 
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1)
@@ -61,20 +58,6 @@ class SearchFragment : Fragment(), SearchResultProvider {
         adapter?.clear()
         results.forEach { adapter?.add(it) }
         adapter?.notifyDataSetChanged()
-    }
-
-    override fun getResultsAdapter(): androidx.recyclerview.widget.RecyclerView.Adapter<*>? {
-        return adapter as? androidx.recyclerview.widget.RecyclerView.Adapter<*>
-    }
-
-    override fun onQueryTextChange(newQuery: String): Boolean {
-        performSearch(newQuery)
-        return true
-    }
-
-    override fun onQueryTextSubmit(query: String): Boolean {
-        performSearch(query)
-        return true
     }
 
     companion object {
