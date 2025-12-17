@@ -53,10 +53,10 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Build Release APK
-      run: ./gradlew assembleRelease
+      run: ./gradlew :app:assembleRelease
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew :app:assembleDebug
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
@@ -110,7 +110,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build Release APK
-      run: ./gradlew assembleRelease
+      run: ./gradlew :app:assembleRelease
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
