@@ -1,0 +1,4 @@
+
+# Claude IDE
+.claude/
+*.local.json
