@@ -97,7 +97,6 @@ Thumbs.db
 
 # 配置文件
 keystore.properties
-version.properties
 
 # Sensitive information
 .env
