@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- 允许云备份的内容 -->
+    </cloud-backup>
+    <device-transfer>
+        <!-- 允许设备传输的内容 -->
+    </device-transfer>
+</data-extraction-rules>
