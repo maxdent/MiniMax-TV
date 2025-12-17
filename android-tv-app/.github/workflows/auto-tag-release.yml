@@ -1,0 +1,37 @@
+name: Auto Tag Release
+
+on:
+  push:
+    branches:
+      - main  # 当推送到main分支时触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    if: github.event.head_commit.message == 'Release version'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Extract version from build.gradle
+      id: version
+      run: |
+        VERSION=$(grep "versionName" app/build.gradle | grep -o '"[0-9]\+\.[0-9]\+\.[0-9]\+"' | tr -d '"')
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "::notice::Extracted version: $VERSION"
+
+    - name: Create tag
+      id: tag
+      run: |
+        TAG="v${{ steps.version.outputs.VERSION }}"
+        echo "TAG=$TAG" >> $GITHUB_OUTPUT
+        git tag $TAG
+        git push origin $TAG
+        echo "::notice::Created and pushed tag: $TAG"
+
+    - name: Trigger release build
+      run: echo "Release build will be triggered automatically by the tag push"

@@ -168,5 +168,4 @@ upload-keystore.keystore
 release.keystore
 
 # CI/CD
-.github/
 !.github/workflows/
