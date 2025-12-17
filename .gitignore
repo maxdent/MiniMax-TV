@@ -156,7 +156,6 @@ gradle-app.setting
 
 # Local configuration
 local.properties
-settings.gradle
 
 # Proguard files
 proguard/
